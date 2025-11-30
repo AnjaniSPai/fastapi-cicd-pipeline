@@ -18,6 +18,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
     # STEP 3: Build the Docker image based on your Dockerfile
     - name: Build Docker image
       uses: docker/build-push-action@v5
@@ -34,7 +37,7 @@ jobs:
         docker run --rm quote-api:latest /bin/bash -c "pip install pytest && pytest"
         # The 'pip install pytest' is sometimes needed if pytest was not installed in the Dockerfile
         # which it currently is not, making this command necessary.
-        
+
     # STEP 4: Run Pytest using the Docker image as the running environment
     - name: Run Pytest using Docker image
       uses: docker://quote-api:latest # Use the image we just built
