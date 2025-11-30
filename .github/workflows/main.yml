@@ -34,3 +34,11 @@ jobs:
         docker run --rm quote-api:latest /bin/bash -c "pip install pytest && pytest"
         # The 'pip install pytest' is sometimes needed if pytest was not installed in the Dockerfile
         # which it currently is not, making this command necessary.
+        
+    # STEP 4: Run Pytest using the Docker image as the running environment
+    - name: Run Pytest using Docker image
+      uses: docker://quote-api:latest # Use the image we just built
+      with:
+        # Run pytest command directly inside the container
+        entrypoint: /usr/local/bin/python
+        args: -m pytest
