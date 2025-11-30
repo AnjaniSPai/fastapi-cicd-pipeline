@@ -1,7 +1,13 @@
 # STEP 1: Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
-# STEP 2: Set the working directory in the container
+# STEP 1.5: Install system packages needed for build and testing
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+    # STEP 2: Set the working directory in the container
 WORKDIR /usr/src/app
 
 # STEP 3: Copy the requirements file and install dependencies
